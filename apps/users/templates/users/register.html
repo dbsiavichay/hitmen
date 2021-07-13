@@ -37,6 +37,15 @@
                                     {% endfor %}
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-6">
+                                        {% include "inputs/input.html" with field=form.first_name %}
+                                    </div>
+                                    <div class="col-6">
+                                        {% include "inputs/input.html" with field=form.last_name %}
+                                    </div>
+                                </div>
+
                                 <div id="password-field" class="field-wrapper input mb-2">
                                     <div class="d-flex justify-content-between">
                                         <label for="password">{{ form.password1.label|upper }}</label>

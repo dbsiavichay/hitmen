@@ -4,12 +4,14 @@
 <script src="{% static 'plugins/jquery/jquery-3.1.1.min.js' %}"></script>
 <script src="{% static 'plugins/bootstrap/js/popper.min.js' %}"></script>
 <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/font-icons/feather/feather.min.js' %}"></script>
 <script src="{% static 'plugins/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
 <script src="{% static 'assets/js/app.js' %}"></script>
 <script>
     $(document).ready(function() {
         App.init();
     });
+    feather.replace();
 </script>
 <script src="{% static 'assets/js/custom.js' %}"></script>
 <!-- END GLOBAL MANDATORY SCRIPTS -->

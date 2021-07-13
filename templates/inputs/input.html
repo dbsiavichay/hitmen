@@ -1,0 +1,8 @@
+{% load widget_tweaks %}
+<div class="form-group mb-4">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {% render_field field class+="form-control" placeholder=field.label %}
+    {% for error in field.errors %}
+    <div class="invalid-feedback" style="display: block;">{{ error }}</div>
+    {% endfor %}
+</div>

@@ -1,0 +1,62 @@
+{% extends "base/base_list.html" %}
+
+{% block content %}
+<a href="{% url 'create_hit' %}" class="btn btn-primary mb-2">Create new</a>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
+        <thead>
+            <tr>
+                <th class="checkbox-column">
+                    <div class="custom-control custom-checkbox checkbox-primary">
+                      <input type="checkbox" class="custom-control-input todochkbox" id="todoAll">
+                      <label class="custom-control-label" for="todoAll"></label>
+                    </div>
+                </th>
+                <th class="">Target</th>
+                <th class="">Assignee</th>
+                <th class="">Creator</th>
+                <th class="">Status</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hit in object_list %}
+            <tr>
+                <td class="checkbox-column">
+                    <div class="custom-control custom-checkbox checkbox-primary">
+                      <input type="checkbox" class="custom-control-input todochkbox" id="todo-1">
+                      <label class="custom-control-label" for="todo-1"></label>
+                    </div>
+                </td>
+                <td>
+                    <p class="mb-0">{{ hit.target }}</p>
+                </td>
+                <td>{{ hit.assignee }}</td>
+                <td>{{ hit.creator }}</td>
+                <td>{{ hit.status }}</td>
+
+                <td class="text-center">
+                    <ul class="table-controls">
+                        <li>
+                            <a href="{% url 'detail_hit' hit.id %}" data-toggle="tooltip" data-placement="top" title="View detail">
+                                <i data-feather="eye"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i data-feather="edit-2"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No se han encontrado registros</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

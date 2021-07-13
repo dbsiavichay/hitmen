@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}" rel="stylesheet" type="text/css" >
+<link href="{% static 'assets/css/tables/table-basic.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+<script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+<script>
+    checkall('todoAll', 'todochkbox');
+    $('[data-toggle="tooltip"]').tooltip()
+</script>
+<!-- END PAGE LEVEL CUSTOM SCRIPTS -->
+{% endblock %}

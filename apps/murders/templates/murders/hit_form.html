@@ -1,0 +1,16 @@
+{% extends "base/base_form.html" %}
+
+{% block content %}
+{{ form.errors }}
+<form method="POST" action="" novalidate>
+    {% csrf_token %}
+    {% include "inputs/input.html" with field=form.target %}
+    {% include "inputs/input.html" with field=form.description %}
+    {% include "inputs/input.html" with field=form.assignee %}
+
+    {% for field in form.hidden_fields %}
+    {{ field }}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+</form>
+{% endblock %}

@@ -10,6 +10,7 @@ psycopg2-binary = "*"
 django = "*"
 environs = "*"
 django-widget-tweaks = "*"
+django-fsm = "*"
 
 [requires]
 python_version = "3.8"

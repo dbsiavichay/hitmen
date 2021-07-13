@@ -31,9 +31,17 @@
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
-                <div class="row layout-top-spacing">
-                    {% block content %}
-                    {% endblock %}
+                <div class="ml-1 mt-3">
+                    <div class="card component-card_1">
+                        <div class="card-body">
+                            <div class="icon-svg"></div>
+                            <h5 class="card-title">Simple</h5>
+                            <p class="card-text">Mauris nisi felis, placerat in volutpat id, varius et sapien.</p>
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             {% include "base/footer.html" %}

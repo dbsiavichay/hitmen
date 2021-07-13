@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="row">
+    {% for name, value in object %}
+    <div class="col-12">
+        <h5 class="text-primary">{{ name|upper }}</h5>
+        <p>{{ value }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

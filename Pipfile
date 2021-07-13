@@ -9,6 +9,7 @@ psycopg2-binary = "*"
 [packages]
 django = "*"
 environs = "*"
+django-widget-tweaks = "*"
 
 [requires]
 python_version = "3.8"

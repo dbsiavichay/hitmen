@@ -39,8 +39,7 @@
                     <div class="card component-card_1">
                         <div class="card-body">
                             <div class="icon-svg"></div>
-                            <h5 class="card-title">Simple</h5>
-                            <p class="card-text">Mauris nisi felis, placerat in volutpat id, varius et sapien.</p>
+                            <h5 class="card-title">{% block title %}Title{% endblock %}</h5>
                             {% block content %}
                             {% endblock %}
                         </div>

@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.edit import FormMixin, FormView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import get_user_model
@@ -29,7 +29,12 @@ class UserListView(PermissionRequiredMixin ,FormMixin, ListView):
         return queryset
 
     def has_permission(self):
-        return self.request.user.lackeys.all().count()
+        user = self.request.user
+        return user.id == 1 or user.lackeys.all().count()
+
+
+class UserDetailView(DetailView):
+    model = User
 
 
 class AssignHitmenView(PermissionRequiredMixin ,FormView):

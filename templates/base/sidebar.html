@@ -14,7 +14,7 @@
                     </div>
                 </a>
             </li>
-            {% if user.lackeys.all %}
+            {% if request.user.id == 1 or request.user.lackeys.all %}
             <li class="menu">
                 <a href="{% url 'hitmen' %}" {% if "hitmen" in request.path %} data-active="true" {% endif %} aria-expanded="false" class="dropdown-toggle">
                     <div class="">

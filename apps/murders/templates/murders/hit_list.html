@@ -35,7 +35,7 @@
                 </td>
                 <td>{{ hit.assignee }}</td>
                 <td>{{ hit.creator }}</td>
-                <td>{{ hit.status }}</td>
+                <td>{{ hit.get_status }}</td>
 
                 <td class="text-center">
                     <ul class="table-controls">
@@ -44,11 +44,13 @@
                                 <i data-feather="eye"></i>
                             </a>
                         </li>
+                        {% if user.lackeys.all and hit.get_status_label|lower == "assigned" %}
                         <li>
                             <a href="{% url 'update_hit' hit.id %}" data-toggle="tooltip" data-placement="top" title="Edit">
                                 <i data-feather="edit-2"></i>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </td>
             </tr>

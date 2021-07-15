@@ -5,33 +5,29 @@
 {% block content %}
 <div class="row">
     <div class="col-12">
-        <h5 class="text-primary">TARGET</h5>
-        <p>{{ object.target }}</p>
+        <h5 class="text-primary">NAME</h5>
+        <p>{{ object.get_full_name}}</p>
     </div>
     <div class="col-12">
-        <h5 class="text-primary">DESCRIPTION</h5>
-        <p>{{ object.description }}</p>
+        <h5 class="text-primary">EMAIL</h5>
+        <p>{{ object.email }}</p>
     </div>
     <div class="col-12">
         <h5 class="text-primary">STATUS</h5>
         <p>{{ object.get_status }}</p>
     </div>
+    {% if object.lackeys.all %}
     <div class="col-12">
-        <h5 class="text-primary">ASSIGNEE</h5>
-        <p>{{ object.assignee }}</p>
+        <h5 class="text-primary">LACKEYS</h5>
+        <ul>
+            {% for lackey in object.lackeys.all %}
+            <li>{{ lackey.get_full_name }} - {{ lackey.email }}</li>
+            {% endfor %}
+        </ul>
     </div>
-    <div class="col-12">
-        <h5 class="text-primary">CREATOR</h5>
-        <p>{{ object.creator }}</p>
-    </div>
+    {% endif %}
 </div>
 
-{% if user.lackeys.all and object.get_status_label|lower == "assigned" %}
-<a href="{% url 'update_hit' object.id  %}" class="btn btn-primary mb-2">
-    Editar
-</a>
-<hr>
-{% endif %}
 {% for transition in object.get_available_status_transitions %}
     <a href="{% url 'workflow_transition' transition.custom.app transition.custom.model transition.name object.id %}" 
         class="btn btn-{{ transition.custom.tag }} transition mb-2">

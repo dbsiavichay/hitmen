@@ -45,18 +45,13 @@
                 <td>{{ hitman.get_full_name }}</td>
                 <td>{{ hitman.email }}</td>
                 <td>{{ hitman.manager|default:"" }}</td>
-                <td>{{ hitman.status }}</td>
+                <td>{{ hitman.get_status }}</td>
 
                 <td class="text-center">
                     <ul class="table-controls">
                         <li>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="View detail">
+                            <a href="{% url 'hitmen_detail' hitman.id %}" data-toggle="tooltip" data-placement="top" title="View detail">
                                 <i data-feather="eye"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i data-feather="edit-2"></i>
                             </a>
                         </li>
                     </ul>

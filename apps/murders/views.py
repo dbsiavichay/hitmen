@@ -23,7 +23,11 @@ class HitCreateView(HitMixin, CreateView):
 
 
 class HitUpdateView(HitMixin, UpdateView):
-    pass
+    def has_permission(self):
+        perm =  super().has_permission()
+        if perm:
+            return self.object.status == self.object.Status.ASSIGNED
+        return perm
 
 
 class HitDetailView(PermissionRequiredMixin, DetailView):

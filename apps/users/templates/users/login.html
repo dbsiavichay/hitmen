@@ -15,8 +15,14 @@
     <!-- END GLOBAL MANDATORY STYLES -->
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/switches.css' %}">
+    <link href="{% static 'plugins/sweetalerts/sweetalert2.min.css' %}" rel="stylesheet" type="text/css">  
+    <link href="{% static 'plugins/sweetalerts/sweetalert.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/components/custom-sweetalert.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body class="form">
+    {% for message in messages %}
+    <i class="d-none notification" data-tags="{{ message.tags }}" data-message="{{ message }}"></i>
+    {% endfor %}
     <div class="form-container outer">
         <div class="form-form">
             <div class="form-form-wrap">
@@ -88,6 +94,9 @@
     
     <!-- END GLOBAL MANDATORY SCRIPTS -->
     <script src="{% static 'assets/js/authentication/form-2.js' %}"></script>
+    <script src="{% static 'plugins/sweetalerts/sweetalert2.min.js' %}"></script>
+    <script src="{% static 'plugins/sweetalerts/custom-sweetalert.js' %}"></script>
+    <script src="{% static 'assets/js/notifications.js' %}"></script>
 
     <script type="text/javascript">
         feather.replace();

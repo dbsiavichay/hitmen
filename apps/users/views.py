@@ -3,6 +3,7 @@ from django.views.generic import CreateView, DetailView, ListView
 from django.views.generic.edit import FormMixin, FormView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
@@ -15,6 +16,15 @@ class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = "users/register.html"
     success_url = reverse_lazy("login")
+
+    def form_valid(self, form):
+        messages.add_message(self.request, messages.SUCCESS, "Successfully registered")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, "An error has occurred")
+        return super().form_valid(form)
+
 
 
 class UserListView(PermissionRequiredMixin ,FormMixin, ListView):
@@ -48,11 +58,13 @@ class AssignHitmenView(PermissionRequiredMixin ,FormView):
             hitmen.update(manager=manager)
             manager.manager = None
             manager.save()
+        messages.add_message(self.request, messages.SUCCESS, "Successfully assignment")
         return redirect(reverse_lazy("hitmen"))
 
     def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, "An error has occurred")
         return redirect(reverse_lazy("hitmen"))
 
     def has_permission(self):
-        return self.request.user == 1
+        return self.request.user.id == 1
     

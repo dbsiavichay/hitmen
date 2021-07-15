@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib import messages
+
 
 from .models import Hit
 from .forms import HitForm
@@ -9,6 +11,14 @@ class HitMixin(PermissionRequiredMixin):
     model = Hit
     form_class = HitForm
     success_url = reverse_lazy("hits")
+
+    def form_valid(self, form):
+        messages.add_message(self.request, messages.SUCCESS, "Successfully saved")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, "An error has occurred")
+        return super().form_invalid(form)
 
     def get_initial(self):
         initial = super().get_initial()

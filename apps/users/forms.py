@@ -34,10 +34,12 @@ class RegisterForm(UserCreationForm):
 
 class HitmenForm(forms.Form):
     hitmen = forms.ModelMultipleChoiceField(
-        queryset=User.objects.filter(lackeys__isnull=True).exclude(id=1),
+        queryset=User.objects.filter(
+            lackeys__isnull=True, status=User.Status.ACTIVE
+        ).exclude(id=1),
         label="Available hitmen"
     )
     manager = forms.ModelChoiceField(
-        queryset=User.objects.exclude(id=1),
+        queryset=User.objects.filter(status=User.Status.ACTIVE).exclude(id=1),
     )
 

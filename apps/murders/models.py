@@ -25,6 +25,9 @@ class Hit(models.Model):
         protected=True
     )
 
+    def __str__(self):
+        return f"{self.target} -> {self.assignee.email}"
+
     @property
     def get_status(self):
         status = (

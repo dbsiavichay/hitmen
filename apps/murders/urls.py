@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
 from .views import (
-    HitListView, HitCreateView, HitUpdateView, HitDetailView
+    HitListView, HitCreateView, HitUpdateView, HitDetailView, HitBulkReassignView
 )
 
 urlpatterns = [
@@ -29,5 +29,10 @@ urlpatterns = [
         route="hits/<int:pk>/",
         view=login_required(HitDetailView.as_view()),
         name="detail_hit",
+    ),
+    path(
+        route="hits/bulk/",
+        view=login_required(HitBulkReassignView.as_view()),
+        name="bulk_hit",
     ),
 ]

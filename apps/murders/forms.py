@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Hit
+from apps.users.models import User
 
 class HitForm(forms.ModelForm):
     class Meta:
@@ -25,3 +26,15 @@ class HitForm(forms.ModelForm):
                     id__in=[1, creator.id], 
                 )
             self.fields["assignee"].queryset = queryset
+
+
+class BulkAssignForm(forms.Form):
+    hits = forms.ModelMultipleChoiceField(
+        queryset=Hit.objects.filter(
+            status=Hit.Status.ASSIGNED
+        ),
+        label="Available hits"
+    )
+    assignee = forms.ModelChoiceField(
+        queryset=User.objects.filter(status=User.Status.ACTIVE).exclude(id=1),
+    )

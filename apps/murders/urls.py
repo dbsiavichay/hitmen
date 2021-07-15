@@ -6,6 +6,11 @@ from .views import (
 
 urlpatterns = [
     path(
+        route="",
+        view=login_required(HitListView.as_view()),
+        name="hits",
+    ),
+    path(
         route="hits/",
         view=login_required(HitListView.as_view()),
         name="hits",

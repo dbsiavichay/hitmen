@@ -16,6 +16,11 @@ urlpatterns = [
         name="login",
     ),
     path(
+        route="logout/",
+        view=auth_views.LogoutView.as_view(),
+        name="logout",
+    ),
+    path(
         route="hitmen/",
         view=login_required(UserListView.as_view()),
         name="hitmen",

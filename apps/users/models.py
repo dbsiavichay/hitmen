@@ -16,9 +16,10 @@ class User(AbstractUser):
         verbose_name="Correo electrónico",
         error_messages={"unique": "Un usuario con ese correo ya existe."},
     )
-    is_manager = models.BooleanField(
-        default=False,
-        verbose_name="¿es manager?"
+    manager = models.ForeignKey(
+        "self", on_delete=models.PROTECT,
+        null=True, related_name="lackeys",
+        verbose_name="manager"
     )
 
     USERNAME_FIELD = "email"

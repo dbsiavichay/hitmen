@@ -31,3 +31,13 @@ class RegisterForm(UserCreationForm):
             user.save()
         return user
 
+
+class HitmenForm(forms.Form):
+    hitmen = forms.ModelMultipleChoiceField(
+        queryset=User.objects.filter(lackeys__isnull=True).exclude(id=1),
+        label="Available hitmen"
+    )
+    manager = forms.ModelChoiceField(
+        queryset=User.objects.exclude(id=1),
+    )
+

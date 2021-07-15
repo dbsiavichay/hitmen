@@ -1,0 +1,87 @@
+{% extends "base/base_list.html" %}
+
+{% block content %}
+<button href="#" class="btn btn-primary btn-assign mb-2">
+    <i data-feather="user-check"></i>
+    Add hitmen to a manager
+</button>
+<div style="display: none;" class="assign mb-2">
+    <form action="{% url 'assign_hitmen' %}" method="POST">
+        {% csrf_token %}
+        {% include "inputs/input.html" with field=form.hitmen %}
+        {% include "inputs/input.html" with field=form.manager %}
+        <button type="submit" class="btn btn-success">Assign</button>
+    </form>
+    <hr>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
+        <thead>
+            <tr>
+                <th class="checkbox-column">
+                    <div class="custom-control custom-checkbox checkbox-primary">
+                      <input type="checkbox" class="custom-control-input todochkbox" id="todoAll">
+                      <label class="custom-control-label" for="todoAll"></label>
+                    </div>
+                </th>
+                <th class="">Name</th>
+                <th class="">Email</th>
+                <th class="">Manager</th>
+                <th class="">Status</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hitman in object_list %}
+            <tr>
+                <td class="checkbox-column">
+                    <div class="custom-control custom-checkbox checkbox-primary">
+                      <input type="checkbox" class="custom-control-input todochkbox" id="todo-1">
+                      <label class="custom-control-label" for="todo-1"></label>
+                    </div>
+                </td>
+                <td>{{ hitman.get_full_name }}</td>
+                <td>{{ hitman.email }}</td>
+                <td>{{ hitman.manager|default:"" }}</td>
+                <td>{{ hitman.status }}</td>
+
+                <td class="text-center">
+                    <ul class="table-controls">
+                        <li>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="View detail">
+                                <i data-feather="eye"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <i data-feather="edit-2"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No se han encontrado registros</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script>
+    const initMurders = () => {
+        document.querySelector(".btn-assign").addEventListener("click", event => {
+            $(".assign").slideToggle();
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        initMurders();
+    });
+</script>
+{% endblock %}

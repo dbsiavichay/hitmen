@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
 from .views import RegisterView, UserListView, AssignHitmenView
 
@@ -16,12 +17,12 @@ urlpatterns = [
     ),
     path(
         route="hitmen/",
-        view=UserListView.as_view(),
+        view=login_required(UserListView.as_view()),
         name="hitmen",
     ),
      path(
         route="assign/hitmen/",
-        view=AssignHitmenView.as_view(),
+        view=login_required(AssignHitmenView.as_view()),
         name="assign_hitmen",
     ),
 ]

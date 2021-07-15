@@ -1,10 +1,12 @@
 {% extends "base/base_list.html" %}
 
 {% block content %}
+{% if user.id == 1 %}
 <button href="#" class="btn btn-primary btn-assign mb-2">
     <i data-feather="user-check"></i>
     Add hitmen to a manager
 </button>
+{% endif %}
 <div style="display: none;" class="assign mb-2">
     <form action="{% url 'assign_hitmen' %}" method="POST">
         {% csrf_token %}

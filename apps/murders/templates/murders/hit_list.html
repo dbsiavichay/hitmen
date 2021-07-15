@@ -1,7 +1,9 @@
 {% extends "base/base_list.html" %}
 
 {% block content %}
+{% if user.lackeys.all %}
 <a href="{% url 'create_hit' %}" class="btn btn-primary mb-2">Create new</a>
+{% endif %}
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped table-checkable table-highlight-head mb-4">
         <thead>
@@ -43,7 +45,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <a href="{% url 'update_hit' hit.id %}" data-toggle="tooltip" data-placement="top" title="Edit">
                                 <i data-feather="edit-2"></i>
                             </a>
                         </li>

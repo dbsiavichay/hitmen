@@ -1,5 +1,7 @@
+from django.db.models import Q
 from django.views.generic import CreateView, ListView
 from django.views.generic.edit import FormMixin, FormView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -15,12 +17,22 @@ class RegisterView(CreateView):
     success_url = reverse_lazy("login")
 
 
-class UserListView(FormMixin, ListView):
+class UserListView(PermissionRequiredMixin ,FormMixin, ListView):
     model = User
     form_class = HitmenForm
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        if not user.id == 1:
+            queryset = queryset.filter(Q(id=user.id) | Q(manager=user))
+        return queryset
 
-class AssignHitmenView(FormView):
+    def has_permission(self):
+        return self.request.user.lackeys.all().count()
+
+
+class AssignHitmenView(PermissionRequiredMixin ,FormView):
     form_class = HitmenForm
 
     def form_valid(self, form):
@@ -35,4 +47,7 @@ class AssignHitmenView(FormView):
 
     def form_invalid(self, form):
         return redirect(reverse_lazy("hitmen"))
+
+    def has_permission(self):
+        return self.request.user == 1
     

@@ -1,24 +1,39 @@
-from apps.murders.forms import HitForm
-from django.views.generic import ListView, CreateView, DetailView
-from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Hit
+from .mixins import HitMixin
+
 
 class HitListView(ListView):
     model = Hit
 
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset()
+        if not user.id == 1:
+            lackeys = list(user.lackeys.values_list("id", flat=True).all())
+            lackeys.append(user.id)
+            queryset = queryset.filter(assignee_id__in=lackeys)
+        return queryset
 
-class HitCreateView(CreateView):
+
+class HitCreateView(HitMixin, CreateView):
+    pass
+
+
+class HitUpdateView(HitMixin, UpdateView):
+    pass
+
+
+class HitDetailView(PermissionRequiredMixin, DetailView):
     model = Hit
-    form_class = HitForm
-    success_url = reverse_lazy("hits")
 
-    def get_initial(self):
-        initial = super().get_initial()
-        initial["creator"] = self.request.user
-        return initial
-
-
-class HitDetailView(DetailView):
-    model = Hit
+    def has_permission(self):
+        user = self.request.user
+        if user.id == 1:
+            return True
+        lackeys = list(user.lackeys.values_list("id", flat=True).all())
+        lackeys.append(user.id)
+        return self.get_object().assignee_id in lackeys
+        

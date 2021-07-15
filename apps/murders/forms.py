@@ -16,5 +16,5 @@ class HitForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         creator = self.initial.get("creator")
         if creator:
-            queryset = self.fields["assignee"].queryset
-            self.fields["assignee"].queryset = queryset.exclude(id__in=[1, creator.id])
+            queryset = creator.lackeys.exclude(id__in=[1, creator.id])
+            self.fields["assignee"].queryset = queryset

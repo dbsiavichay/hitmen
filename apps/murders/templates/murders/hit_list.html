@@ -1,7 +1,7 @@
 {% extends "base/base_list.html" %}
 
 {% block content %}
-{% if user.lackeys.all %}
+{% if request.user.id == 1 or request.user.lackeys.all %}
 <a href="{% url 'create_hit' %}" class="btn btn-primary mb-2">Create new</a>
 {% endif %}
 <div class="table-responsive">
@@ -44,12 +44,14 @@
                                 <i data-feather="eye"></i>
                             </a>
                         </li>
-                        {% if user.lackeys.all and hit.get_status_label|lower == "assigned" %}
+                        {% if user.id == 1 or user.lackeys.all  %}
+                        {% if hit.get_status_label|lower == "assigned" %}
                         <li>
                             <a href="{% url 'update_hit' hit.id %}" data-toggle="tooltip" data-placement="top" title="Edit">
                                 <i data-feather="edit-2"></i>
                             </a>
                         </li>
+                        {% endif %}
                         {% endif %}
                     </ul>
                 </td>

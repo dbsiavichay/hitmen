@@ -34,5 +34,5 @@ class HitMixin(PermissionRequiredMixin):
             return False
         if self.kwargs.get("pk"):
             self.object = self.get_object()
-            return self.object.assignee_id in lackeys
+            return self.object.assignee_id in lackeys or self.object.assignee_id == user.id
         return self.request.user.lackeys.all().count()

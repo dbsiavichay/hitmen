@@ -26,6 +26,7 @@ class HitUpdateView(HitMixin, UpdateView):
     def has_permission(self):
         perm =  super().has_permission()
         if perm:
+            self.object = self.get_object()
             return self.object.status == self.object.Status.ASSIGNED
         return perm
 

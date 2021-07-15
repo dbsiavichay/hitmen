@@ -1,6 +1,4 @@
 from django import forms
-from django.db.models import query
-from django.forms import fields, widgets
 
 from .models import Hit
 
@@ -16,5 +14,14 @@ class HitForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         creator = self.initial.get("creator")
         if creator:
-            queryset = creator.lackeys.exclude(id__in=[1, creator.id])
+            queryset = self.fields["assignee"].queryset
+            queryset = queryset.filter(status=queryset.model.Status.ACTIVE)
+            if creator.id == 1:
+                queryset = queryset.exclude(id__in=[creator.id])
+            else:
+                queryset = creator.lackeys.filter(
+                    status=queryset.model.Status.ACTIVE
+                ).exclude(
+                    id__in=[1, creator.id], 
+                )
             self.fields["assignee"].queryset = queryset
